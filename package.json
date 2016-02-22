@@ -1,0 +1,46 @@
+{
+  "name": "react-context-ajax",
+  "version": "0.0.1",
+  "description": "Makes the superagent ajax calls available to the react component hierarchy",
+  "keywords": [
+    "react",
+    "component",
+    "superagent",
+    "ajax",
+    "server calls",
+    "context"
+  ],
+  "main": "release/contextAjax.js",
+  "homepage": "https://github.com/uhlryk/react-context-ajax",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/uhlryk/react-context-ajax.git"
+  },
+  "scripts": {
+    "build": "./node_modules/webpack/bin/webpack.js",
+    "build-example": "npm run build && ./node_modules/webpack/bin/webpack.js --config ./example/webpack.config.js",
+    "test": "./node_modules/.bin/mocha --compilers js:babel-register tests"
+  },
+  "author": "Krzysztof Sztompka <sztompka.krzysztof@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/uhlryk/react-context-ajax/issues"
+  },
+  "devDependencies": {
+    "babel-core": "^6.3.26",
+    "babel-loader": "^6.2.0",
+    "babel-preset-es2015": "^6.3.13",
+    "babel-preset-react": "^6.3.13",
+    "babel-preset-stage-0": "^6.3.13",
+    "babel-register": "^6.3.13",
+    "chai": "^3.4.1",
+    "chai-things": "^0.2.0",
+    "mocha": "^2.3.4",
+    "webpack": "^1.12.9"
+  },
+  "dependencies": {
+    "react": "^0.14.5",
+    "react-dom": "^0.14.5",
+    "superagent": "^1.7.2"
+  }
+}
