@@ -2,7 +2,7 @@ import superagent from 'superagent';
 
 class Request {
 
-  constructor(options) {
+  constructor(options = {}) {
     this.baseUrl = options.baseUrl || '';
     this.timeout = options.timeout;
     this.type = options.type || 'json';
