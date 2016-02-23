@@ -12,7 +12,8 @@ class SomeComponent extends React.Component {
   };
 
   componentWillMount() {
-    console.log(this.context.request);
+    this.context.request.getRequest('localhost:3000', {}, (err, res)=>{
+    });
   }
 
   render() {
