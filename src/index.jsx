@@ -7,14 +7,16 @@ class ContextAjax extends React.Component {
     baseUrl: React.PropTypes.string
   };
 
-  static childContextType = {
+  static childContextTypes = {
     request: React.PropTypes.object
   };
 
   constructor(props) {
     super(props);
 
-    this.request = new Request(props.baseUrl);
+    this.request = new Request({
+      baseUrl: props.baseUrl
+    });
   }
 
   getChildContext() {

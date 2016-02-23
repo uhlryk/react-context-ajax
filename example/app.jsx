@@ -1,10 +1,10 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import Request from '../release/contextAjax.js';
+import Request from '../src/index.jsx';
 
 class SomeComponent extends React.Component {
   static contextTypes = {
-    request: React.PropTypes.string
+    request: React.PropTypes.object
   };
 
   constructor(props) {
@@ -13,6 +13,10 @@ class SomeComponent extends React.Component {
 
   componentWillMount() {
     console.log(this.context.request);
+  }
+
+  render() {
+    return (<span>test</span>);
   }
 }
 

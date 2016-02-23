@@ -1,5 +1,6 @@
 var webpack = require('webpack');
 module.exports = {
+  devtool: 'source-map',
   entry: [
     './example/app.jsx'
   ],
@@ -18,13 +19,5 @@ module.exports = {
         }
       }
     ]
-  },
-  plugins: [
-  new webpack.optimize.DedupePlugin(),
-  new webpack.optimize.UglifyJsPlugin({
-    compress: {
-      warnings: false
-    }
-  })
-]
+  }
 };
