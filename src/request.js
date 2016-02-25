@@ -7,6 +7,7 @@ class Request {
     this.timeout = options.timeout;
     this.type = options.type || 'json';
     this.headers = options.headers || [];
+    this.callback = options.callback
   }
 
   addHeader(key, value) {

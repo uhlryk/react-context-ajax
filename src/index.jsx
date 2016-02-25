@@ -4,7 +4,11 @@ import Request from './request';
 class ContextAjax extends React.Component {
 
   static propTypes = {
-    options: React.PropTypes.object
+    baseUrl: React.PropTypes.string,
+    timeout: React.PropTypes.number,
+    type: React.PropTypes.string,
+    headers: React.PropTypes.object,
+    callback: React.PropTypes.func
   };
 
   static childContextTypes = {
@@ -14,7 +18,7 @@ class ContextAjax extends React.Component {
   constructor(props) {
     super(props);
 
-    this.request = new Request(props.options);
+    this.request = new Request(props);
   }
 
   getChildContext() {
