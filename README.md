@@ -260,7 +260,7 @@ Global callback can prevent local callback from being invoked.
 
 Callback function get two arguments
 
-    globalCallbackFunction(err, res) {
+    localCallbackFunction(err, res) {
       done();
     }
 
