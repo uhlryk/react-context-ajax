@@ -96,7 +96,7 @@ describe("Check server ", function() {
   });
   it("should return status code 200 at delete request", function(done) {
     var request = new Request();
-    request.deleteRequest('http://localhost:3000/item/1', {}, {}, function(err, res) {
+    request.deleteRequest('http://localhost:3000/item/1', {}, function(err, res) {
       expect(err).to.not.exist;
       expect(res.status).to.be.equal(200);
       done();
@@ -104,11 +104,10 @@ describe("Check server ", function() {
   });
   it("should return status code 200 at delete request", function(done) {
     var request = new Request();
-    request.deleteRequest('http://localhost:3000/item/1', { pparam: 'test2'}, { qparam: 'test1'}, function(err, res) {
+    request.deleteRequest('http://localhost:3000/item/1', { qparam: 'test1'}, function(err, res) {
       expect(err).to.not.exist;
       expect(params.param).to.be.equal('1');
       expect(query.qparam).to.be.equal('test1');
-      expect(body.pparam).to.be.equal('test2');
       expect(res.status).to.be.equal(200);
       done();
     })

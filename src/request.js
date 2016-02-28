@@ -57,8 +57,8 @@ class Request {
     this._configRequest(superagent.put(this._configUrl(url)).send(bodyParams).query(queryParams), endCallback);
   }
 
-  deleteRequest(url, bodyParams = {}, queryParams = {}, endCallback = null) {
-    this._configRequest(superagent.del(this._configUrl(url)).send(bodyParams).query(queryParams), endCallback);
+  deleteRequest(url, queryParams = {}, endCallback = null) {
+    this._configRequest(superagent.del(this._configUrl(url)).query(queryParams), endCallback);
   }
 
   request() {
