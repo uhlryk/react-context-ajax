@@ -30,7 +30,11 @@ class Request {
     });
 
     return request.end((err, res) => {
-      if(endCallback) {
+      if(this.callback && endCallback) {
+        this.callback(err, res, (newErr = err, newRes = res) => endCallback(newErr, newRes));
+      } else if(this.callback) {
+        this.callback(err, res, () => {});
+      }else if(endCallback) {
         endCallback(err, res);
       }
     });
