@@ -117,8 +117,120 @@ First part of url, where request are send. If all your request have similar part
 This is global callback which is called after all requests from child components. It is not required. You can handle all
 requests in local callback (passed as parameter to request call). More about it in section Global callback
 
+## Context request methods:
+
+Request object is available in components content:
+
+    this.context.request
+
+And it has methods:
+
+### getRequest(url, queryParams = {}, localCallback = null)
+Load data from the server using a HTTP GET request
+
+#### url
+
+ * type: string
+
+A string containing the URL to which the request is sent. It is concatenate with baseUrl
+
+#### queryParams
+
+ * type: object
+ * default: {}  
+ 
+Data that is added as query to url
+ 
+#### localCallback
+ 
+More about it in section Local callback
+
+### postRequest(url, bodyParams = {}, queryParams = {}, localCallback = null)
+Load data from the server using a HTTP POST request.
+
+#### url
+
+ * type: string
+
+A string containing the URL to which the request is sent. It is concatenate with baseUrl
+
+#### bodyParams
+
+ * type: object
+ * default: {}  
+
+Data that is sent to the server with the request.
+
+#### queryParams
+
+ * type: object
+ * default: {}  
+ 
+Data that is added as query to url
+ 
+#### localCallback
+ 
+More about it in section Local callback
+
+### putRequest(url, bodyParams = {}, queryParams = {}, localCallback = null)
+Load data from the server using a HTTP PUT request
+
+#### url
+
+ * type: string
+
+A string containing the URL to which the request is sent. It is concatenate with baseUrl
+
+#### bodyParams
+
+ * type: object
+ * default: {}  
+
+Data that is sent to the server with the request.
+
+#### queryParams
+
+ * type: object
+ * default: {}  
+ 
+Data that is added as query to url
+ 
+#### localCallback
+ 
+More about it in section Local callback
+
+### deleteRequest(url, queryParams = {}, localCallback = null)
+Load data from the server using a HTTP DELETE request
+
+#### url
+
+ * type: string
+
+A string containing the URL to which the request is sent. It is concatenate with baseUrl
+
+#### bodyParams
+
+ * type: object
+ * default: {}  
+
+Data that is sent to the server with the request.
+
+#### queryParams
+
+ * type: object
+ * default: {}  
+ 
+Data that is added as query to url
+ 
+#### localCallback
+ 
+More about it in section Local callback
+
+### request()
+Return superagent instance.
+
 ## Global callback
-This is function which is passed as prop to Request component.
+This function is passed as prop to Request component. And is invoked at the end of request.
 
 Callback function get three arguments
 
@@ -141,8 +253,25 @@ If done is invoked without params it will run local callback with err and res fr
 This is handy to get everything in global calback, check received data, and return only processed part 
 (or for example if you use router, redirect to error page or login page).
 
+## Local callback
+This function is passed as last argument in request methods. And is invoked at the end of request (after global callback).
+Global callback can prevent local callback from being invoked.
 
 
+Callback function get two arguments
+
+    globalCallbackFunction(err, res) {
+      done();
+    }
+
+
+### err
+Error object. By default it is error object created by superagent. More about it in superagent [documentation](http://visionmedia.github.io/superagent/#error-handling).
+But in global callback this object could be changed.
+
+### res 
+Response object By default this is response object created by superagent. More about it in superagent [documentation](http://visionmedia.github.io/superagent/#response-properties)
+But in global callback this object could be changed.
 
 ## License
 MIT
