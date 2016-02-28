@@ -40,21 +40,25 @@ class Request {
     });
   }
 
+  _configUrl(url) {
+    return this.baseUrl + url;
+  }
+
   getRequest(url, queryParams = {}, endCallback = null) {
-    this._configRequest(superagent.get(url).query(queryParams), endCallback);
+    this._configRequest(superagent.get(this._configUrl(url)).query(queryParams), endCallback);
   }
 
   postRequest(url, bodyParams = {}, queryParams = {}, endCallback = null) {
-    this._configRequest(superagent.post(url).send(bodyParams).query(queryParams), endCallback);
+    this._configRequest(superagent.post(this._configUrl(url)).send(bodyParams).query(queryParams), endCallback);
   }
 
 
   putRequest(url, bodyParams = {}, queryParams = {}, endCallback = null) {
-    this._configRequest(superagent.put(url).send(bodyParams).query(queryParams), endCallback);
+    this._configRequest(superagent.put(this._configUrl(url)).send(bodyParams).query(queryParams), endCallback);
   }
 
   deleteRequest(url, bodyParams = {}, queryParams = {}, endCallback = null) {
-    this._configRequest(superagent.del(url).send(bodyParams).query(queryParams), endCallback);
+    this._configRequest(superagent.del(this._configUrl(url)).send(bodyParams).query(queryParams), endCallback);
   }
 
   request() {

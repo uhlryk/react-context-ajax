@@ -3,7 +3,7 @@ var expect = chai.expect;
 var sinon = require('sinon');
 var Request = require('./dist/request').default;
 var nock = require('nock');
-describe("Check server ", function() {
+describe("Test callbacks ", function() {
   beforeEach(function(done) {
     nock('http://localhost:3000').get('/item').reply(200, {param : 'test'});
     done();
