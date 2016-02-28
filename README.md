@@ -47,11 +47,9 @@ As you can see you have to do two steps in main file:
  
 1. import react-context-ajax:
 
-
-    import Request from 'react-context-ajax';
+    import Request from 'react-context-ajax';`
 
 2. Wrap your render jsx components by 'react-context-ajax'(<Request>)
-
 
     class App extends React.Component {
     //...
@@ -94,6 +92,57 @@ And now you can use router
 
     this.context.request
     
+## Options:
+
+    <Request
+      baseUrl={'http://yourDomain.com'}
+      callback={this.globalCallbackFunction}
+    >
+    // children components
+    </Request>
+
+### baseUrl
+
+ * type: string
+ * required: false
+ * default: ''
+ 
+First part of url, where request are send. If all your request have similar part then this part can be set here.
+
+### callback
+
+ * type: function
+ * required: false
+ 
+This is global callback which is called after all requests from child components. It is not required. You can handle all
+requests in local callback (passed as parameter to request call). More about it in section Global callback
+
+## Global callback
+This is function which is passed as prop to Request component.
+
+Callback function get three arguments
+
+    globalCallbackFunction(err, res, done) {
+      done();
+    }
+
+### err
+if everything is ok this value is null. If server return status code 4xx and 5xx or there are connection errors then this value exist.
+This is error object created by superagent. More about it in superagent [documentation](http://visionmedia.github.io/superagent/#error-handling)
+
+### res 
+All data returned from server. 
+This is response object created by superagent. More about it in superagent [documentation](http://visionmedia.github.io/superagent/#response-properties)
+
+### done
+this is function. If global callback call it, then this will run local callback. Otherwise local callback will not be invoked.
+If done is invoked without params it will run local callback with err and res from global callback.
+**You can invoke `done` with own error and response object after you process original data.**
+This is handy to get everything in global calback, check received data, and return only processed part 
+(or for example if you use router, redirect to error page or login page).
+
+
+
 
 ## License
 MIT
