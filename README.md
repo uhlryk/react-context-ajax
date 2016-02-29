@@ -47,9 +47,11 @@ As you can see you have to do two steps in main file:
  
 1. import react-context-ajax:
 
+
     import Request from 'react-context-ajax';`
 
 2. Wrap your render jsx components by 'react-context-ajax'(<Request>)
+
 
     class App extends React.Component {
     //...
