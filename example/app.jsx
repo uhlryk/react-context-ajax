@@ -12,7 +12,9 @@ class SomeComponent extends React.Component {
   };
 
   componentWillMount() {
-    this.context.request.getRequest('localhost:3000', {}, (err, res)=>{
+    this.context.request.getRequest({
+      url: 'localhost:3000',
+      endCallback: (err, res)=>{}
     });
   }
 

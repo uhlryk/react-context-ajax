@@ -13,27 +13,36 @@ describe("Test local and baseUrl ", function() {
   });
   it("should connect to server url, where url is set in local", function(done) {
     var request = new Request();
-    request.getRequest('http://localhost:3000/item', {}, function(err, res) {
-      expect(res.status).to.be.equal(200);
-      done();
+    request.getRequest({
+      url: 'http://localhost:3000/item',
+      endCallback: function(err, res) {
+        expect(res.status).to.be.equal(200);
+        done();
+      }
     });
   });
   it("should connect to server url, where base url is set", function(done) {
     var request = new Request({
       baseUrl: 'http://localhost:3000'
     });
-    request.getRequest('/item', {}, function(err, res) {
-      expect(res.status).to.be.equal(200);
-      done();
+    request.getRequest({
+      url: '/item',
+      endCallback: function(err, res) {
+        expect(res.status).to.be.equal(200);
+        done();
+      }
     });
   });
   it("should return error when url no exist", function(done) {
     var request = new Request({
       baseUrl: 'http://localhost:3000'
     });
-    request.getRequest('/something', {}, function(err, res) {
-      expect(err).to.exist;
-      done();
+    request.getRequest({
+      url: '/something',
+      endCallback: function(err, res) {
+        expect(err).to.exist;
+        done();
+      }
     });
   });
 });

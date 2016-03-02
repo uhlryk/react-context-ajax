@@ -15,7 +15,10 @@ describe("Test callbacks ", function() {
   it("should trigger local callback when no global callback", function(done) {
     var callback = sinon.spy();
     var request = new Request();
-    request.getRequest('http://localhost:3000/item', {}, callback);
+    request.getRequest({
+      url: 'http://localhost:3000/item',
+      endCallback : callback
+    });
     setTimeout(function(){
       expect(callback.called).to.be.equal(true);
       expect(callback.args[0][0]).to.not.exist;//callback.args[0][0] err
@@ -29,7 +32,7 @@ describe("Test callbacks ", function() {
     var request = new Request({
       callback: callback
     });
-    request.getRequest('http://localhost:3000/item', {});
+    request.getRequest({ url: 'http://localhost:3000/item'});
     setTimeout(function(){
       expect(callback.called).to.be.equal(true);
       expect(callback.args[0][0]).to.not.exist;//callback.args[0][0] err
@@ -44,7 +47,7 @@ describe("Test callbacks ", function() {
     var request = new Request({
       callback: globalCallback
     });
-    request.getRequest('http://localhost:3000/item', {}, localCallback);
+    request.getRequest({ url: 'http://localhost:3000/item', endCallback: localCallback});
     setTimeout(function(){
       expect(globalCallback.called).to.be.equal(true);
       expect(globalCallback.args[0][0]).to.not.exist;//callback.args[0][0] err
@@ -61,7 +64,10 @@ describe("Test callbacks ", function() {
         next();
       }
     });
-    request.getRequest('http://localhost:3000/item', {}, localCallback);
+    request.getRequest({
+      url: 'http://localhost:3000/item',
+      endCallback: localCallback
+    });
     setTimeout(function(){
       expect(localCallback.called).to.be.equal(true);
       expect(localCallback.args[0][0]).to.not.exist;//callback.args[0][0] err
@@ -77,7 +83,10 @@ describe("Test callbacks ", function() {
         next({ code:500}, null);
       }
     });
-    request.getRequest('http://localhost:3000/item', {}, localCallback);
+    request.getRequest({
+      url: 'http://localhost:3000/item',
+      endCallback: localCallback
+    });
     setTimeout(function(){
       expect(localCallback.called).to.be.equal(true);
       expect(localCallback.args[0][0]).to.exist;//callback.args[0][0] err
@@ -94,7 +103,10 @@ describe("Test callbacks ", function() {
         next(null, {param: res.body.param + 'A'});
       }
     });
-    request.getRequest('http://localhost:3000/item', {}, localCallback);
+    request.getRequest({
+      url: 'http://localhost:3000/item',
+      endCallback: localCallback
+    });
     setTimeout(function(){
       expect(localCallback.called).to.be.equal(true);
       expect(localCallback.args[0][0]).to.not.exist;//callback.args[0][0] err

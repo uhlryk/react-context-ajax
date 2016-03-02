@@ -40,25 +40,25 @@ class Request {
     });
   }
 
-  _configUrl(url) {
+  _configUrl(url = '') {
     return this.baseUrl + url;
   }
 
-  getRequest(url, queryParams = {}, endCallback = null) {
-    this._configRequest(superagent.get(this._configUrl(url)).query(queryParams), endCallback);
+  getRequest(options = {}) {
+    this._configRequest(superagent.get(this._configUrl(options.url)).query(options.query), options.endCallback);
   }
 
-  postRequest(url, bodyParams = {}, queryParams = {}, endCallback = null) {
-    this._configRequest(superagent.post(this._configUrl(url)).send(bodyParams).query(queryParams), endCallback);
+  postRequest(options = {}) {
+    this._configRequest(superagent.post(this._configUrl(options.url)).send(options.body).query(options.query), options.endCallback);
   }
 
 
-  putRequest(url, bodyParams = {}, queryParams = {}, endCallback = null) {
-    this._configRequest(superagent.put(this._configUrl(url)).send(bodyParams).query(queryParams), endCallback);
+  putRequest(options = {}) {
+    this._configRequest(superagent.put(this._configUrl(options.url)).send(options.body).query(options.query), options.endCallback);
   }
 
-  deleteRequest(url, queryParams = {}, endCallback = null) {
-    this._configRequest(superagent.del(this._configUrl(url)).query(queryParams), endCallback);
+  deleteRequest(options = {}) {
+    this._configRequest(superagent.del(this._configUrl(options.url)).query(options.query), options.endCallback);
   }
 
   request() {
