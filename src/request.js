@@ -7,7 +7,7 @@ class Request {
     this.timeout = options.timeout;
     this.type = options.type || 'json';
     this.headers = options.headers || [];
-    this.callback = options.callback
+    this.endCallback = options.endCallback
   }
 
   addHeader(key, value) {
@@ -30,10 +30,10 @@ class Request {
     });
 
     return request.end((err, res) => {
-      if(this.callback && endCallback) {
-        this.callback(err, res, (newErr = err, newRes = res) => endCallback(newErr, newRes));
-      } else if(this.callback) {
-        this.callback(err, res, () => {});
+      if(this.endCallback && endCallback) {
+        this.endCallback(err, res, (newErr = err, newRes = res) => endCallback(newErr, newRes));
+      } else if(this.endCallback) {
+        this.endCallback(err, res, () => {});
       }else if(endCallback) {
         endCallback(err, res);
       }

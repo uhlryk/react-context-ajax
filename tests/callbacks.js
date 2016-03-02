@@ -30,7 +30,7 @@ describe("Test callbacks ", function() {
   it("should trigger global callback when no local callback", function(done) {
     var callback = sinon.spy();
     var request = new Request({
-      callback: callback
+      endCallback: callback
     });
     request.getRequest({ url: 'http://localhost:3000/item'});
     setTimeout(function(){
@@ -45,7 +45,7 @@ describe("Test callbacks ", function() {
     var globalCallback = sinon.spy();
     var localCallback = sinon.spy();
     var request = new Request({
-      callback: globalCallback
+      endCallback: globalCallback
     });
     request.getRequest({ url: 'http://localhost:3000/item', endCallback: localCallback});
     setTimeout(function(){
@@ -60,7 +60,7 @@ describe("Test callbacks ", function() {
   it("should trigger global callback and local callback with equal err and response params", function(done) {
     var localCallback = sinon.spy();
     var request = new Request({
-      callback: function(err, res, next) {
+      endCallback: function(err, res, next) {
         next();
       }
     });
@@ -79,7 +79,7 @@ describe("Test callbacks ", function() {
   it("should trigger global callback and local callback with err value", function(done) {
     var localCallback = sinon.spy();
     var request = new Request({
-      callback: function(err, res, next) {
+      endCallback: function(err, res, next) {
         next({ code:500}, null);
       }
     });
@@ -99,7 +99,7 @@ describe("Test callbacks ", function() {
   it("should trigger global callback and local callback with different response", function(done) {
     var localCallback = sinon.spy();
     var request = new Request({
-      callback: function(err, res, next) {
+      endCallback: function(err, res, next) {
         next(null, {param: res.body.param + 'A'});
       }
     });

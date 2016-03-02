@@ -8,7 +8,7 @@ class ContextAjax extends React.Component {
     timeout: React.PropTypes.number,
     type: React.PropTypes.string,
     headers: React.PropTypes.object,
-    callback: React.PropTypes.func
+    endCallback: React.PropTypes.func
   };
 
   static childContextTypes = {

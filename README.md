@@ -48,7 +48,7 @@ As you can see you have to do two steps in main file:
 1. import react-context-ajax:
 
 
-    import Request from 'react-context-ajax';`
+    import Request from 'react-context-ajax';
 
 2. Wrap your render jsx components by 'react-context-ajax'(<Request>)
 
@@ -77,8 +77,14 @@ Example component **someComponent.jsx**:
         super(props);
       };
       componentWillMount() {
-        this.context.request.getRequest('http://yourUrl.com/someParam', { key: 'value'}, (err, res)=>{
-          //response from server
+        this.context.request.getRequest({
+          url: 'http://yourUrl.com/someParam', 
+          query: { 
+            key: 'value'
+          }, 
+          endCallback: (err, res)=>{
+            //response from server
+          }
         });
       }
       //...
@@ -98,7 +104,7 @@ And now you can use router
 
     <Request
       baseUrl={'http://yourDomain.com'}
-      callback={this.globalCallbackFunction}
+      endCallback={this.globalCallbackFunction}
     >
     // children components
     </Request>
@@ -111,13 +117,13 @@ And now you can use router
  
 First part of url, where request are send. If all your request have similar part then this part can be set here.
 
-### callback
+### endCallback
 
  * type: function
  * required: false
  
-This is global callback which is called after all requests from child components. It is not required. You can handle all
-requests in local callback (passed as parameter to request call). More about it in section Global callback
+This is global endCallback which is called after ech request from child components. It is not required. You can handle all
+requests in local callback (passed as parameter to request call). More about it in section Global endCallback
 
 ## Context request methods:
 
@@ -127,111 +133,49 @@ Request object is available in components content:
 
 And it has methods:
 
-### getRequest(url, queryParams = {}, localCallback = null)
+### getRequest(options)
 Load data from the server using a HTTP GET request
 
-#### url
-
- * type: string
-
-A string containing the URL to which the request is sent. It is concatenate with baseUrl
-
-#### queryParams
-
- * type: object
- * default: {}  
- 
-Data that is added as query to url
- 
-#### localCallback
- 
-More about it in section Local callback
-
-### postRequest(url, bodyParams = {}, queryParams = {}, localCallback = null)
+### postRequest(options)
 Load data from the server using a HTTP POST request.
 
-#### url
-
- * type: string
-
-A string containing the URL to which the request is sent. It is concatenate with baseUrl
-
-#### bodyParams
-
- * type: object
- * default: {}  
-
-Data that is sent to the server with the request.
-
-#### queryParams
-
- * type: object
- * default: {}  
- 
-Data that is added as query to url
- 
-#### localCallback
- 
-More about it in section Local callback
-
-### putRequest(url, bodyParams = {}, queryParams = {}, localCallback = null)
+### putRequest(options)
 Load data from the server using a HTTP PUT request
 
-#### url
-
- * type: string
-
-A string containing the URL to which the request is sent. It is concatenate with baseUrl
-
-#### bodyParams
-
- * type: object
- * default: {}  
-
-Data that is sent to the server with the request.
-
-#### queryParams
-
- * type: object
- * default: {}  
- 
-Data that is added as query to url
- 
-#### localCallback
- 
-More about it in section Local callback
-
-### deleteRequest(url, queryParams = {}, localCallback = null)
+### deleteRequest(options)
 Load data from the server using a HTTP DELETE request
 
-#### url
+### available options for request methods
+
+#### options.url
 
  * type: string
 
 A string containing the URL to which the request is sent. It is concatenate with baseUrl
 
-#### bodyParams
-
- * type: object
- * default: {}  
-
-Data that is sent to the server with the request.
-
-#### queryParams
+#### options.query
 
  * type: object
  * default: {}  
  
 Data that is added as query to url
  
-#### localCallback
+#### options.body
+
+ * type: object
+ * default: {}  
+
+Data that is sent to the server with the request. Not in use for get and delete methods.
+
+
+#### options.endCallback
  
-More about it in section Local callback
+Callback invoked after response from server, error or timeout. More about it in section Local endCallback
 
 ### request()
 Return superagent instance.
 
-## Global callback
+## Global endCallback
 This function is passed as prop to Request component. And is invoked at the end of request.
 
 Callback function get three arguments
@@ -255,7 +199,7 @@ If done is invoked without params it will run local callback with err and res fr
 This is handy to get everything in global calback, check received data, and return only processed part 
 (or for example if you use router, redirect to error page or login page).
 
-## Local callback
+## Local endCallback
 This function is passed as last argument in request methods. And is invoked at the end of request (after global callback).
 Global callback can prevent local callback from being invoked.
 
