@@ -34,12 +34,13 @@ class Request {
     });
 
     return request.end((err, res) => {
+      let req = options;
       if(this.endCallback && options.endCallback) {
-        this.endCallback(err, res, (newErr = err, newRes = res) => options.endCallback(newErr, newRes));
+        this.endCallback(err, req, res, (newErr = err, newReq = req, newRes = res) => options.endCallback(newErr,newReq, newRes));
       } else if(this.endCallback) {
-        this.endCallback(err, res, () => {});
+        this.endCallback(err, req, res, () => {});
       }else if(options.endCallback) {
-        options.endCallback(err, res);
+        options.endCallback(err, req, res);
       }
     });
   }

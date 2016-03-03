@@ -82,7 +82,7 @@ Example component **someComponent.jsx**:
           query: { 
             key: 'value'
           }, 
-          endCallback: (err, res)=>{
+          endCallback: (err, req, res)=>{
             //response from server
           }
         });
@@ -204,18 +204,29 @@ set this header here with value null
  
 Callback invoked after response from server, error or timeout. More about it in section Local endCallback
 
+#### options.name
+
+You can set identify string for each call. Then in global callback you can check `req.name` to identify which call is processed.
+
+#### options.*
+
+You can add any custom property. All properties will be available in callbacks `req` parameter. 
+
 ## Global endCallback
 This function is passed as prop to Request component. And is invoked at the end of request.
 
 Callback function get three arguments
 
-    globalCallbackFunction(err, res, done) {
+    globalCallbackFunction(err, req, res, done) {
       done();
     }
 
 ### err
 if everything is ok this value is null. If server return status code 4xx and 5xx or there are connection errors then this value exist.
 This is error object created by superagent. More about it in superagent [documentation](http://visionmedia.github.io/superagent/#error-handling)
+
+### req
+All data passed as option to each request.
 
 ### res 
 All data returned from server. 
@@ -224,7 +235,7 @@ This is response object created by superagent. More about it in superagent [docu
 ### done
 this is function. If global callback call it, then this will run local callback. Otherwise local callback will not be invoked.
 If done is invoked without params it will run local callback with err and res from global callback.
-**You can invoke `done` with own error and response object after you process original data.**
+**You can invoke `done` with own error, request and response object after you process original data.**
 This is handy to get everything in global calback, check received data, and return only processed part 
 (or for example if you use router, redirect to error page or login page).
 
@@ -235,7 +246,7 @@ Global callback can prevent local callback from being invoked.
 
 Callback function get two arguments
 
-    localCallbackFunction(err, res) {
+    localCallbackFunction(err, req, res) {
       done();
     }
 
@@ -243,6 +254,9 @@ Callback function get two arguments
 ### err
 Error object. By default it is error object created by superagent. More about it in superagent [documentation](http://visionmedia.github.io/superagent/#error-handling).
 But in global callback this object could be changed.
+
+### req
+All data passed as option to each request.
 
 ### res 
 Response object By default this is response object created by superagent. More about it in superagent [documentation](http://visionmedia.github.io/superagent/#response-properties)

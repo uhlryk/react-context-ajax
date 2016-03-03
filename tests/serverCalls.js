@@ -21,7 +21,7 @@ describe("Check server ", function() {
     var request = new Request();
     request.getRequest({
       url: 'http://localhost:3000/item',
-      endCallback: function(err, res) {
+      endCallback: function(err, req, res) {
         expect(err).to.not.exist;
         expect(query).to.be.empty;
         expect(body).to.be.empty;
@@ -35,7 +35,7 @@ describe("Check server ", function() {
     var request = new Request();
     request.getRequest({
       url: 'http://localhost:3000/item/1',
-      endCallback: function(err, res) {
+      endCallback: function(err, req, res) {
         expect(err).to.not.exist;
         expect(query).to.be.empty;
         expect(body).to.be.empty;
@@ -52,7 +52,7 @@ describe("Check server ", function() {
       query:{
         qparam: 'test'
       },
-      endCallback: function(err, res) {
+      endCallback: function(err, req, res) {
         expect(err).to.not.exist;
         expect(query.qparam).to.be.equal('test');
         expect(body).to.be.empty;
@@ -66,7 +66,7 @@ describe("Check server ", function() {
     var request = new Request();
     request.postRequest({
       url: 'http://localhost:3000/item',
-      endCallback: function(err, res) {
+      endCallback: function(err, req, res) {
         expect(err).to.not.exist;
         expect(query).to.be.empty;
         expect(body).to.be.empty;
@@ -86,7 +86,7 @@ describe("Check server ", function() {
       query: {
         qparam: 'test1'
       },
-      endCallback: function(err, res) {
+      endCallback: function(err, req, res) {
         expect(err).to.not.exist;
         expect(query.qparam).to.be.equal('test1');
         expect(params).to.be.empty;
@@ -100,7 +100,7 @@ describe("Check server ", function() {
     var request = new Request();
     request.putRequest({
       url: 'http://localhost:3000/item/1',
-      endCallback: function(err, res) {
+      endCallback: function(err, req, res) {
         expect(err).to.not.exist;
         expect(params.param).to.be.equal('1');
         expect(query).to.be.empty;
@@ -120,7 +120,7 @@ describe("Check server ", function() {
       query:{
         qparam: 'test1'
       },
-      endCallback: function(err, res) {
+      endCallback: function(err, req, res) {
         expect(err).to.not.exist;
         expect(params.param).to.be.equal('1');
         expect(query.qparam).to.be.equal('test1');
@@ -134,7 +134,7 @@ describe("Check server ", function() {
     var request = new Request();
     request.deleteRequest({
       url: 'http://localhost:3000/item/1',
-      endCallback: function(err, res) {
+      endCallback: function(err, req, res) {
         expect(err).to.not.exist;
         expect(res.status).to.be.equal(200);
         done();
@@ -148,7 +148,7 @@ describe("Check server ", function() {
       query: {
         qparam: 'test1'
       },
-      endCallback: function(err, res) {
+      endCallback: function(err, req, res) {
         expect(err).to.not.exist;
         expect(params.param).to.be.equal('1');
         expect(query.qparam).to.be.equal('test1');
@@ -161,7 +161,7 @@ describe("Check server ", function() {
     var request = new Request();
     request.getRequest({
       url: 'http://localhost:3000/error400',
-      endCallback: function(err, res) {
+      endCallback: function(err, req, res) {
         expect(err.status).to.be.equal(400);
         expect(res.status).to.be.equal(400);
         done();
@@ -172,7 +172,7 @@ describe("Check server ", function() {
     var request = new Request();
     request.getRequest({
       url: 'http://localhost:3000/error500',
-      endCallback: function(err, res) {
+      endCallback: function(err, req, res) {
         expect(err.status).to.be.equal(500);
         expect(res.status).to.be.equal(500);
         done();

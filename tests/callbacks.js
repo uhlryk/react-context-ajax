@@ -22,7 +22,8 @@ describe("Test callbacks ", function() {
     setTimeout(function(){
       expect(callback.called).to.be.equal(true);
       expect(callback.args[0][0]).to.not.exist;//callback.args[0][0] err
-      expect(callback.args[0][1].body.param).to.be.equal('test');//callback.args[0][1] res
+      expect(callback.args[0][1].url).to.be.equal('http://localhost:3000/item');//callback.args[0][1] req
+      expect(callback.args[0][2].body.param).to.be.equal('test');//callback.args[0][2] res
       nock.isDone();
       done();
     },100);
@@ -36,7 +37,8 @@ describe("Test callbacks ", function() {
     setTimeout(function(){
       expect(callback.called).to.be.equal(true);
       expect(callback.args[0][0]).to.not.exist;//callback.args[0][0] err
-      expect(callback.args[0][1].body.param).to.be.equal('test');//callback.args[0][1] res
+      expect(callback.args[0][1].url).to.be.equal('http://localhost:3000/item');//callback.args[0][1] req
+      expect(callback.args[0][2].body.param).to.be.equal('test');//callback.args[0][2] res
       nock.isDone();
       done();
     },100);
@@ -51,7 +53,8 @@ describe("Test callbacks ", function() {
     setTimeout(function(){
       expect(globalCallback.called).to.be.equal(true);
       expect(globalCallback.args[0][0]).to.not.exist;//callback.args[0][0] err
-      expect(globalCallback.args[0][1].body.param).to.be.equal('test');//callback.args[0][1] res
+      expect(globalCallback.args[0][1].url).to.be.equal('http://localhost:3000/item');//callback.args[0][1] req
+      expect(globalCallback.args[0][2].body.param).to.be.equal('test');//callback.args[0][2] res
       expect(localCallback.called).to.be.equal(false);
       nock.isDone();
       done();
@@ -60,7 +63,7 @@ describe("Test callbacks ", function() {
   it("should trigger global callback and local callback with equal err and response params", function(done) {
     var localCallback = sinon.spy();
     var request = new Request({
-      endCallback: function(err, res, next) {
+      endCallback: function(err, req, res, next) {
         next();
       }
     });
@@ -71,7 +74,8 @@ describe("Test callbacks ", function() {
     setTimeout(function(){
       expect(localCallback.called).to.be.equal(true);
       expect(localCallback.args[0][0]).to.not.exist;//callback.args[0][0] err
-      expect(localCallback.args[0][1].body.param).to.be.equal('test');//callback.args[0][1] res
+      expect(localCallback.args[0][1].url).to.be.equal('http://localhost:3000/item');//callback.args[0][1] req
+      expect(localCallback.args[0][2].body.param).to.be.equal('test');//callback.args[0][2] res
       nock.isDone();
       done();
     },200);
@@ -79,8 +83,8 @@ describe("Test callbacks ", function() {
   it("should trigger global callback and local callback with err value", function(done) {
     var localCallback = sinon.spy();
     var request = new Request({
-      endCallback: function(err, res, next) {
-        next({ code:500}, null);
+      endCallback: function(err, req, res, next) {
+        next({ code:500}, req, null);
       }
     });
     request.getRequest({
@@ -91,7 +95,8 @@ describe("Test callbacks ", function() {
       expect(localCallback.called).to.be.equal(true);
       expect(localCallback.args[0][0]).to.exist;//callback.args[0][0] err
       expect(localCallback.args[0][0].code).to.be.equal(500);
-      expect(localCallback.args[0][1]).to.not.exist;//callback.args[0][1] res
+      expect(localCallback.args[0][1].url).to.be.equal('http://localhost:3000/item');//callback.args[0][1] req
+      expect(localCallback.args[0][21]).to.not.exist;//callback.args[0][2] res
       nock.isDone();
       done();
     },200);
@@ -99,8 +104,8 @@ describe("Test callbacks ", function() {
   it("should trigger global callback and local callback with different response", function(done) {
     var localCallback = sinon.spy();
     var request = new Request({
-      endCallback: function(err, res, next) {
-        next(null, {param: res.body.param + 'A'});
+      endCallback: function(err, req, res, next) {
+        next(null, req, {param: res.body.param + 'A'});
       }
     });
     request.getRequest({
@@ -110,7 +115,8 @@ describe("Test callbacks ", function() {
     setTimeout(function(){
       expect(localCallback.called).to.be.equal(true);
       expect(localCallback.args[0][0]).to.not.exist;//callback.args[0][0] err
-      expect(localCallback.args[0][1].param).to.be.equal('testA');//callback.args[0][1] res
+      expect(localCallback.args[0][1].url).to.be.equal('http://localhost:3000/item');//callback.args[0][1] res
+      expect(localCallback.args[0][2].param).to.be.equal('testA');//callback.args[0][1] res
       nock.isDone();
       done();
     },200);

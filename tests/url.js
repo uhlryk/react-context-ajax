@@ -15,7 +15,7 @@ describe("Test local and baseUrl ", function() {
     var request = new Request();
     request.getRequest({
       url: 'http://localhost:3000/item',
-      endCallback: function(err, res) {
+      endCallback: function(err, req, res) {
         expect(res.status).to.be.equal(200);
         done();
       }
@@ -27,7 +27,7 @@ describe("Test local and baseUrl ", function() {
     });
     request.getRequest({
       url: '/item',
-      endCallback: function(err, res) {
+      endCallback: function(err, req, res) {
         expect(res.status).to.be.equal(200);
         done();
       }
@@ -39,7 +39,7 @@ describe("Test local and baseUrl ", function() {
     });
     request.getRequest({
       url: '/something',
-      endCallback: function(err, res) {
+      endCallback: function(err, req, res) {
         expect(err).to.exist;
         done();
       }

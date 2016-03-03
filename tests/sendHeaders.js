@@ -16,7 +16,7 @@ describe("Test if headers are send ", function() {
     var request = new Request();
     request.getRequest({
       url: 'http://localhost:3000/item',
-      endCallback: function (err, res) {
+      endCallback: function (err, req, res) {
         expect(err).to.be.exist;
         expect(err.status).to.be.equal(404);
         nock.isDone();
@@ -29,7 +29,7 @@ describe("Test if headers are send ", function() {
     request.addHeader('test','ffdsffsdf');
     request.getRequest({
       url: 'http://localhost:3000/item',
-      endCallback: function (err, res) {
+      endCallback: function (err, req, res) {
         expect(err).to.be.exist;
         expect(err.status).to.be.equal(404);
         nock.isDone();
@@ -42,7 +42,7 @@ describe("Test if headers are send ", function() {
     request.addHeader('token','123456789');
     request.getRequest({
       url: 'http://localhost:3000/item',
-      endCallback: function (err, res) {
+      endCallback: function (err, req, res) {
 
         expect(res.status).to.be.equal(200);
         nock.isDone();
@@ -56,7 +56,7 @@ describe("Test if headers are send ", function() {
     request.removeHeader('token');
     request.getRequest({
       url: 'http://localhost:3000/item',
-      endCallback: function (err, res) {
+      endCallback: function (err, req, res) {
         expect(err).to.be.exist;
         expect(err.status).to.be.equal(404);
         nock.isDone();
@@ -72,7 +72,7 @@ describe("Test if headers are send ", function() {
     });
     request.getRequest({
       url: 'http://localhost:3000/item',
-      endCallback: function (err, res) {
+      endCallback: function (err, req, res) {
         expect(res.status).to.be.equal(200);
         nock.isDone();
         done();
@@ -85,7 +85,7 @@ describe("Test if headers are send ", function() {
     request.addHeader('token','123456789');
     request.getRequest({
       url: 'http://localhost:3000/item',
-      endCallback: function (err, res) {
+      endCallback: function (err, req, res) {
         expect(res.status).to.be.equal(200);
         nock.isDone();
         done();
@@ -99,7 +99,7 @@ describe("Test if headers are send ", function() {
       headers: {
         token: '123456789'
       },
-      endCallback: function (err, res) {
+      endCallback: function (err, req, res) {
         expect(res.status).to.be.equal(200);
         nock.isDone();
         done();
@@ -114,7 +114,7 @@ describe("Test if headers are send ", function() {
       headers: {
         token: '123456789'
       },
-      endCallback: function (err, res) {
+      endCallback: function (err, req, res) {
         expect(res.status).to.be.equal(200);
         nock.isDone();
         done();
@@ -129,7 +129,7 @@ describe("Test if headers are send ", function() {
       headers: {
         token: null
       },
-      endCallback: function (err, res) {
+      endCallback: function (err, req, res) {
         expect(err).to.be.exist;
         expect(err.status).to.be.equal(404);
         nock.isDone();
