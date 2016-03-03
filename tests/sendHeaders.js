@@ -64,6 +64,21 @@ describe("Test if headers are send ", function() {
       }
     });
   });
+  it("should success when we set correct header in constructor", function(done) {
+    var request = new Request({
+      headers: {
+        'token': '123456789'
+      }
+    });
+    request.getRequest({
+      url: 'http://localhost:3000/item',
+      endCallback: function (err, res) {
+        expect(res.status).to.be.equal(200);
+        nock.isDone();
+        done();
+      }
+    });
+  });
   it("should success when we override global wrong header to correct before send", function(done) {
     var request = new Request();
     request.addHeader('token','abcdefg');
