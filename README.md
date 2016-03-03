@@ -104,6 +104,7 @@ And now you can use router
 
     <Request
       baseUrl={'http://yourDomain.com'}
+      headers={this.headerObject}
       endCallback={this.globalCallbackFunction}
     >
     // children components
@@ -116,6 +117,13 @@ And now you can use router
  * default: ''
  
 First part of url, where request are send. If all your request have similar part then this part can be set here.
+
+### headers
+
+ * type: object
+ * required: false
+ 
+Allow to set headers for all request methods. There is also possibility to change global headers using request instance.
 
 ### endCallback
 
@@ -132,6 +140,18 @@ Request object is available in components content:
     this.context.request
 
 And it has methods:
+
+### request()
+
+Return superagent instance.
+
+### addHeader(key, value)
+
+Add next global header (for all request). If user is login you send for each request token in header.
+  
+### removeHeader(key)
+
+Remove one global header (for all request). For example after user logout we don't want to send token in header
 
 ### getRequest(options)
 Load data from the server using a HTTP GET request
@@ -150,30 +170,39 @@ Load data from the server using a HTTP DELETE request
 #### options.url
 
  * type: string
-
+ * required: false
+ 
 A string containing the URL to which the request is sent. It is concatenate with baseUrl
 
 #### options.query
 
  * type: object
  * default: {}  
+ * required: false
  
 Data that is added as query to url
  
 #### options.body
 
  * type: object
- * default: {}  
+ * default: {}
+ * required: false
 
 Data that is sent to the server with the request. Not in use for get and delete methods.
 
+#### options.headers
+
+ * type: object
+ * default: {}
+ * required: false
+
+Set headers for this request. If header has same key as globally set header, then this header will override it.
+If you don't want to sent in this request any global header (but you don't want to remove them globally) you can
+set this header here with value null
 
 #### options.endCallback
  
 Callback invoked after response from server, error or timeout. More about it in section Local endCallback
-
-### request()
-Return superagent instance.
 
 ## Global endCallback
 This function is passed as prop to Request component. And is invoked at the end of request.
