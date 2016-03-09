@@ -154,16 +154,16 @@ Add next global header (for all request). If user is login you send for each req
 Remove one global header (for all request). For example after user logout we don't want to send token in header
 
 ### getRequest(options)
-Load data from the server using a HTTP GET request
+Load data from the server using a HTTP GET request. Return superagent request object.
 
 ### postRequest(options)
-Load data from the server using a HTTP POST request.
+Load data from the server using a HTTP POST request. Return superagent request object.
 
 ### putRequest(options)
-Load data from the server using a HTTP PUT request
+Load data from the server using a HTTP PUT request. Return superagent request object.
 
 ### deleteRequest(options)
-Load data from the server using a HTTP DELETE request
+Load data from the server using a HTTP DELETE request. Return superagent request object.
 
 ### available options for request methods
 
@@ -211,6 +211,16 @@ You can set identify string for each call. Then in global callback you can check
 #### options.*
 
 You can add any custom property. All properties will be available in callbacks `req` parameter. 
+
+## Aborting requests
+
+To abort request you have to use superagent request object (this object is returned from all request methods) and invoke its abort() method.
+
+example:
+
+    var request = this.context.request.getRequest({ ... });
+    request.abort();
+    
 
 ## Global endCallback
 This function is passed as prop to Request component. And is invoked at the end of request.
