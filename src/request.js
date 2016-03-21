@@ -35,7 +35,7 @@ class Request {
 
     return request.end((err, res) => {
       let req = options;
-      req.request = superagent;
+      req.request = this;
       if(this.endCallback && options.endCallback) {
         this.endCallback(err, req, res, (newErr = err, newReq = req, newRes = res) => options.endCallback(newErr,newReq, newRes));
       } else if(this.endCallback) {

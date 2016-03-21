@@ -8,6 +8,7 @@ class ContextAjax extends React.Component {
     timeout: React.PropTypes.number,
     type: React.PropTypes.string,
     headers: React.PropTypes.object,
+    readyCallback: React.PropTypes.func,
     endCallback: React.PropTypes.func
   };
 
@@ -24,6 +25,12 @@ class ContextAjax extends React.Component {
   getChildContext() {
     return {
       request: this.request
+    }
+  }
+
+  componentDidMount() {
+    if(this.props.readyCallback) {
+      this.props.readyCallback(this.request);
     }
   }
 

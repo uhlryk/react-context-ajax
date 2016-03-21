@@ -125,6 +125,10 @@ First part of url, where request are send. If all your request have similar part
  
 Allow to set headers for all request methods. There is also possibility to change global headers using request instance.
 
+### readyCallback
+
+Run after component `componentDidMount` phase and pass to callback request instance.
+
 ### endCallback
 
  * type: function
@@ -237,7 +241,7 @@ This is error object created by superagent. More about it in superagent [documen
 
 ### req
 All data passed as option to each request.
-It has also reference to superagent:
+It has also reference to request instance:
 
     req.request
 
@@ -270,7 +274,7 @@ But in global callback this object could be changed.
 
 ### req
 All data passed as option to each request.
-It has also reference to superagent:
+It has also reference to request instance:
 
     req.request
 
