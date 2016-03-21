@@ -237,6 +237,9 @@ This is error object created by superagent. More about it in superagent [documen
 
 ### req
 All data passed as option to each request.
+It has also reference to superagent:
+
+    req.request
 
 ### res 
 All data returned from server. 
@@ -267,6 +270,9 @@ But in global callback this object could be changed.
 
 ### req
 All data passed as option to each request.
+It has also reference to superagent:
+
+    req.request
 
 ### res 
 Response object By default this is response object created by superagent. More about it in superagent [documentation](http://visionmedia.github.io/superagent/#response-properties)

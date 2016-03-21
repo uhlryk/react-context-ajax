@@ -1,6 +1,6 @@
 {
   "name": "react-context-ajax",
-  "version": "0.7.0",
+  "version": "0.8.0",
   "description": "Makes the superagent ajax calls available to the react component hierarchy",
   "keywords": [
     "react",
