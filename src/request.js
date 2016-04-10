@@ -32,7 +32,26 @@ class Request {
         request = request.set(key, value);
       }
     });
-
+    let fields = Object.assign({}, options.fields);
+    Object.keys(fields).forEach((key) => {
+      let value = fields[key];
+      if(value !== undefined && value !== null) {
+        request = request.field(key, value);
+      }
+    });
+    let attachments = Object.assign({}, options.attachments);
+    Object.keys(attachments).forEach((key) => {
+      let value = fields[key];
+      if(value !== undefined && value !== null) {
+        if(value.filename && value.path) {
+          request = request.field(key, value.path, value.filename);
+        } else if(value.path) {
+          request = request.attach(key, value.path);
+        } else {
+          request = request.field(key, value);
+        }
+      }
+    });
     return request.end((err, res) => {
       let req = options;
       req.request = this;

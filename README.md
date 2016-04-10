@@ -178,6 +178,12 @@ Load data from the server using a HTTP DELETE request. Return superagent request
  
 A string containing the URL to which the request is sent. It is concatenate with baseUrl
 
+Example:
+
+    this.context.request.getRequest({
+      url: 'someurl',
+    })
+
 #### options.query
 
  * type: object
@@ -185,7 +191,16 @@ A string containing the URL to which the request is sent. It is concatenate with
  * required: false
  
 Data that is added as query to url
- 
+
+Example:
+
+    this.context.request.postRequest({
+      url: 'someurl',
+      query: {
+        id: '213241421
+      }
+    })
+
 #### options.body
 
  * type: object
@@ -193,6 +208,16 @@ Data that is added as query to url
  * required: false
 
 Data that is sent to the server with the request. Not in use for get and delete methods.
+
+Example:
+
+    this.context.request.postRequest({
+      url: 'someurl',
+      body: {
+        name: '213241421,
+        something: 'fdsfdsds'
+      }
+    })
 
 #### options.headers
 
@@ -204,6 +229,66 @@ Set headers for this request. If header has same key as globally set header, the
 If you don't want to sent in this request any global header (but you don't want to remove them globally) you can
 set this header here with value null
 
+
+Example:
+
+    this.context.request.postRequest({
+      url: 'someurl',
+      headers: {
+        'access-token', '1212414fsvsvsdsvdsvsd
+      },
+      body: {
+        name: '213241421,
+        something: 'fdsfdsds'
+      }
+    })
+
+#### options.fields
+
+ * type: object
+ * default: {}
+ * required: false
+ 
+For Multipart requests. Much like form files inputs in HTML, you can send files to server. 
+
+ 
+Example:
+
+    this.context.request.postRequest({
+      url: 'someurl',
+      attachments: {
+        file1: 'path/to/myfile.ext',
+      },
+      fields: {
+        field1: 'dsadsa',
+        field1: 'vxcxcvxcv'
+      }
+    })
+
+#### options.attachments
+
+ * type: object
+ * default: {}
+ * required: false
+ 
+For Multipart requests. Much like form fields in HTML, you can set field values with the fields = { name1: value1, name2: value2 }
+ 
+Example:
+
+    this.context.request.postRequest({
+      url: 'someurl',
+      attachments: {
+        file1: 'path/to/myfile.ext',
+        file2: {
+          path: 'path/to/secondfile.ext',
+        },
+        file3: {
+          path: 'path/to/thirdfile.ext',
+          filename: 'newname.ext2'
+        },
+      }
+    })
+    
 #### options.endCallback
  
 Callback invoked after response from server, error or timeout. More about it in section Local endCallback
