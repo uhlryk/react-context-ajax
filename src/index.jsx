@@ -6,7 +6,6 @@ class ContextAjax extends React.Component {
   static propTypes = {
     baseUrl: React.PropTypes.string,
     timeout: React.PropTypes.number,
-    type: React.PropTypes.string,
     headers: React.PropTypes.object,
     readyCallback: React.PropTypes.func,
     endCallback: React.PropTypes.func

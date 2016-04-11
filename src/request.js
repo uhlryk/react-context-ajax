@@ -5,7 +5,6 @@ class Request {
   constructor(options = {}) {
     this.baseUrl = options.baseUrl || '';
     this.timeout = options.timeout;
-    this.type = options.type || 'json';
     this.headers = options.headers || {};
     this.endCallback = options.endCallback
   }
@@ -22,8 +21,8 @@ class Request {
     if(this.timeout) {
       request = request.timeout(this.timeout);
     }
-    if(this.type) {
-      request = request.type(this.type);
+    if(options.type) {
+      request = request.type(options.type);
     }
     let headers = Object.assign({}, this.headers, options.headers);
     Object.keys(headers).forEach((key) => {
@@ -41,14 +40,14 @@ class Request {
     });
     let attachments = Object.assign({}, options.attachments);
     Object.keys(attachments).forEach((key) => {
-      let value = fields[key];
+      let value = attachments[key];
       if(value !== undefined && value !== null) {
         if(value.filename && value.path) {
-          request = request.field(key, value.path, value.filename);
+          request = request.attach(key, value.path, value.filename);
         } else if(value.path) {
           request = request.attach(key, value.path);
         } else {
-          request = request.field(key, value);
+          request = request.attach(key, value);
         }
       }
     });
